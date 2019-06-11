@@ -12,7 +12,7 @@ var mode;
 /*
 prepare the drawing canvas 
 */
-$(function() {
+$(function () {
     canvas = window._canvas = new fabric.Canvas('canvas');
     canvas.backgroundColor = '#ffffff';
     canvas.isDrawingMode = 0;
@@ -20,14 +20,14 @@ $(function() {
     canvas.freeDrawingBrush.width = 10;
     canvas.renderAll();
     //setup listeners 
-    canvas.on('mouse:up', function(e) {
+    canvas.on('mouse:up', function (e) {
         getFrame();
         mousePressed = false
     });
-    canvas.on('mouse:down', function(e) {
+    canvas.on('mouse:down', function (e) {
         mousePressed = true
     });
-    canvas.on('mouse:move', function(e) {
+    canvas.on('mouse:move', function (e) {
         recordCoor(e)
     });
 })
@@ -66,10 +66,10 @@ get the best bounding box by trimming around the drawing
 */
 function getMinBox() {
     //get coordinates 
-    var coorX = coords.map(function(p) {
+    var coorX = coords.map(function (p) {
         return p.x
     });
-    var coorY = coords.map(function(p) {
+    var coorY = coords.map(function (p) {
         return p.y
     });
 
@@ -94,15 +94,15 @@ function getMinBox() {
 get the current image data 
 */
 function getImageData() {
-        //get the minimum bounding box around the drawing 
-        const mbb = getMinBox()
+    //get the minimum bounding box around the drawing 
+    const mbb = getMinBox()
 
-        //get image data according to dpi 
-        const dpi = window.devicePixelRatio
-        const imgData = canvas.contextContainer.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-                                                      (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
-        return imgData
-    }
+    //get image data according to dpi 
+    const dpi = window.devicePixelRatio
+    const imgData = canvas.contextContainer.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
+        (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
+    return imgData
+}
 
 /*
 get the prediction 
@@ -146,7 +146,7 @@ async function loadDict() {
         loc = 'model2/class_names_ar.txt'
     else
         loc = 'model2/class_names.txt'
-    
+
     await $.ajax({
         url: loc,
         dataType: 'text',
@@ -172,7 +172,7 @@ function findIndicesOfMax(inp, count) {
     for (var i = 0; i < inp.length; i++) {
         outp.push(i); // add index to output array
         if (outp.length > count) {
-            outp.sort(function(a, b) {
+            outp.sort(function (a, b) {
                 return inp[b] - inp[a];
             }); // descending sort the output array
             outp.pop(); // remove the last index (index of smallest element in output array)
@@ -200,10 +200,10 @@ function preprocess(imgData) {
     return tf.tidy(() => {
         //convert to a tensor 
         let tensor = tf.browser.fromPixels(imgData, numChannels = 1)
-        
+
         //resize 
         const resized = tf.image.resizeBilinear(tensor, [28, 28]).toFloat()
-        
+
         //normalize 
         const offset = tf.scalar(255.0);
         const normalized = tf.scalar(1.0).sub(resized.div(offset));
@@ -220,16 +220,16 @@ load the model
 async function start(cur_mode) {
     //arabic or english
     mode = cur_mode
-    
+
     //load the model 
     model = await tf.loadLayersModel('model2/model.json')
-    
+
     //warm up 
     model.predict(tf.zeros([1, 28, 28, 1]))
-    
+
     //allow drawing on the canvas 
     allowDrawing()
-    
+
     //load the class names
     await loadDict()
 }
@@ -245,7 +245,7 @@ function allowDrawing() {
         document.getElementById('status').innerHTML = 'تم التحميل';
     $('button').prop('disabled', false);
     var slider = document.getElementById('myRange');
-    slider.oninput = function() {
+    slider.oninput = function () {
         canvas.freeDrawingBrush.width = this.value;
     };
 }
