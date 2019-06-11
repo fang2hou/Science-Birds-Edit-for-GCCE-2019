@@ -142,13 +142,8 @@ function getClassNames(indices) {
 load the class names 
 */
 async function loadDict() {
-    if (mode == 'ar')
-        loc = 'src/model2/class_names_ar.txt'
-    else
-        loc = 'src/model2/class_names.txt'
-
     await $.ajax({
-        url: loc,
+        url: 'src/model2/class_names.txt',
         dataType: 'text',
     }).done(success);
 }
@@ -217,10 +212,7 @@ function preprocess(imgData) {
 /*
 load the model
 */
-async function start(cur_mode) {
-    //arabic or english
-    mode = cur_mode
-
+async function start() {
     //load the model 
     model = await tf.loadLayersModel('src/model2/model.json')
 
