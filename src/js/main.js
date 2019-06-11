@@ -144,8 +144,9 @@ load the class names
 async function loadDict() {
     if (mode == 'ar')
         loc = '../model2/class_names_ar.txt'
+        loc = 'src/model2/class_names_ar.txt'
     else
-        loc = '../model2/class_names.txt'
+        loc = 'src/model2/class_names.txt'
 
     await $.ajax({
         url: loc,
@@ -222,7 +223,7 @@ async function start(cur_mode) {
     mode = cur_mode
 
     //load the model 
-    model = await tf.loadLayersModel('../model2/model.json')
+    model = await tf.loadLayersModel('src/model2/model.json')
 
     //warm up 
     model.predict(tf.zeros([1, 28, 28, 1]))
@@ -239,10 +240,7 @@ allow drawing on canvas
 */
 function allowDrawing() {
     canvas.isDrawingMode = 1;
-    if (mode == 'en')
-        document.getElementById('status').innerHTML = 'Model Loaded';
-    else
-        document.getElementById('status').innerHTML = 'تم التحميل';
+    document.getElementById('status').innerHTML = "<button type=\"button\" class=\"button is-primary\" onclick=\'toggleSketch()\'>Start drawing</button>";
     $('button').prop('disabled', false);
     var slider = document.getElementById('myRange');
     slider.oninput = function () {
@@ -257,4 +255,10 @@ function erase() {
     canvas.clear();
     canvas.backgroundColor = '#ffffff';
     coords = [];
+}
+
+function exportLevel() {
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    console.log("s")
+    window.location.href=image;
 }
