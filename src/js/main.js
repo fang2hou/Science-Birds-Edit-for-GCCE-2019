@@ -253,3 +253,8 @@ function exportLevel() {
     console.log("s")
     window.location.href=image;
 }
+
+function toggleSketch() {
+    var modal = document.getElementById("main-sketch");
+    modal.classList.toggle('is-active');
+}
