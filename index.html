@@ -1,55 +1,38 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="UTF-8" />
-    <title>SketcherICE</title>
-
-    <!-- bs4 css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
-
-    <!-- css pie -->
-    <link rel="stylesheet" href="pie.css">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sketcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="src/css/main.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
     <!-- TensorFlow.js script -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-
-    <!-- canvas script -->
+    <!-- Canvas script -->
     <script src="fabric.js"></script>
-
-    <!-- main script -->
+    <!-- Main script -->
     <script src="main.js"> </script>
-
-    <!-- main css -->
-    <link rel="stylesheet" href="main.css">
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <!-- Brand/logo -->
-        <a class="navbar-brand" href="#">
-            <h1>SKETCH<small>ER</small></h1>
-        </a>
-    </nav>
-    <div class="container-fluid">
-
-        <blockquote class="blockquote text-justify" style="margin:30px;">
-            <p> Please draw a picture you like </p>
-            <footer class="blockquote-footer">ZAID ALYAFEAI</footer>
-        </blockquote>
-    </div>
-
-    <div class="row">
-        <div class="col" style='margin-left:100px;'>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Sketcher
+            </h1>
+            <p class="subtitle">
+                The sketch for art therapy.
+            </p>
+        </div>
+    </section>
+    <section>
             <h4 id='status'>Loading Model... </h4>
             <canvas id="canvas" width="300" height="300" class="canvas"
                 style="border:1px solid #b9bfc9;margin-top:25px;"></canvas>
@@ -58,42 +41,37 @@
                 <button type="button" class="btn btn-outline-primary" onclick='erase()' style='margin-left:10px;'
                     disabled>Clear</button>
             </div>
-        </div>
-        <div class="col">
-            <section style="margin-top:120px">
-                <div class="pieID pie">
-
-                </div>
-                <ul class="pieID legend">
-                    <li>
-                        <em id="sym1"></em>
-                        <span id="prob1"></span>
-                    </li>
-                    <li>
-                        <em id="sym2"></em>
-                        <span id="prob2"></span>
-                    </li>
-                    <li>
-                        <em id="sym3"></em>
-                        <span id="prob3"></span>
-                    </li>
-                    <li>
-                        <em id="sym4"></em>
-                        <span id="prob4"></span>
-                    </li>
-                    <li>
-                        <em id="sym5"></em>
-                        <span id="prob5"></span>
-                    </li>
-                </ul>
-            </section>
-        </div>
-    </div>
+    </section>
+    <section style="margin-top:120px">
+            <div class="pieID pie">
+            </div>
+            <ul class="pieID legend">
+                <li>
+                    <em id="sym1"></em>
+                    <span id="prob1"></span>
+                </li>
+                <li>
+                    <em id="sym2"></em>
+                    <span id="prob2"></span>
+                </li>
+                <li>
+                    <em id="sym3"></em>
+                    <span id="prob3"></span>
+                </li>
+                <li>
+                    <em id="sym4"></em>
+                    <span id="prob4"></span>
+                </li>
+                <li>
+                    <em id="sym5"></em>
+                    <span id="prob5"></span>
+                </li>
+            </ul>
+        </section>
 </body>
 <script src="pie.js"></script>
 <script>
     console.log('starting');
     start('en')
 </script>
-
 </html>
