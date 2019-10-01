@@ -1,4 +1,7 @@
 # Science Birds Edit for GCCE 2019
+
+Last updated: Oct 1st, 2019
+
 This project is the example code of paper: __Towards An Angry Birds-like Game System for Promoting Mental Well-being of Players Using Art-Therapy-embedded PCG__
 
 ![Example](example.gif)
@@ -21,4 +24,4 @@ Developed by Zhou Fang.
 Everyone can use the codes under MIT License.
 
 Special thanks to: 
-[Science Birds](https://github.com/lucasnfe/Science-Birds) | [Sketcher](https://github.com/zaidalyafeai)
+[Science Birds](https://github.com/lucasnfe/Science-Birds)
