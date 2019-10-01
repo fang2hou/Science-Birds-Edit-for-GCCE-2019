@@ -9,7 +9,10 @@ This project is the example code of paper: __Towards An Angry Birds-like Game Sy
     - Windows: `python server_win.py`
     - macOS: `python server_mac.py`
 4. Download [Unity Hub](https://unity3d.com/get-unity/download), install the latest 2018 LTS version.
-5. Compile the game, each time user click the `Next` button in webapp, the `Level 4` will be redesigned.
+5. Compile the game, create a `Client` directory in git directory.
+    - Windows: Save the game and related files in `Client` directory.
+    - macOS: Save the game in `Client` directory.
+6. each time user click the `Next` button in webapp, `Level 4` will be redesigned.
 
 # Copyright
 Developed by Zhou Fang.

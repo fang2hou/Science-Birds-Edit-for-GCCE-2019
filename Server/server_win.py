@@ -55,7 +55,7 @@ class reader_handler(http.server.SimpleHTTPRequestHandler):
                 output_file.write(i)
                 pred = sd.generate_sentences(sd.get_type(i), i)
                 print(pred)
-                with open("site/predict.html", 'w') as a:
+                with open("../WebApp/predict.html", 'w') as a:
                     a.write(pred)
         
         self._set_headers()

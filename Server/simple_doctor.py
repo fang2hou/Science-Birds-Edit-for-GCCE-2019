@@ -47,7 +47,7 @@ if __name__ == "__main__":
     
     pred = generate_sentences(get_type(word), word)
 
-    with open("site/predict.html", 'w') as output_file:
+    with open("../WebApp/predict.html", 'w') as output_file:
         output_file.write(pred)
 
     print(pred)
