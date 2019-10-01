@@ -8,7 +8,7 @@ var canvas;
 var coords = [];
 var mousePressed = false;
 var mode;
-
+var bestResult;
 /*
 prepare the drawing canvas 
 */
@@ -122,6 +122,9 @@ function getFrame() {
         const probs = findTopValues(pred, 5)
         const names = getClassNames(indices)
 
+
+        bestResult = names;
+
         //set the table 
         setTable(names, probs)
     }
@@ -142,8 +145,13 @@ function getClassNames(indices) {
 load the class names 
 */
 async function loadDict() {
+    if (mode == 'ar')
+        loc = 'src/model2/class_names_ar.txt'
+    else
+        loc = 'src/model2/class_names.txt'
+
     await $.ajax({
-        url: 'src/model2/class_names.txt',
+        url: loc,
         dataType: 'text',
     }).done(success);
 }
@@ -212,7 +220,10 @@ function preprocess(imgData) {
 /*
 load the model
 */
-async function start() {
+async function start(cur_mode) {
+    //arabic or english
+    mode = cur_mode
+
     //load the model 
     model = await tf.loadLayersModel('src/model2/model.json')
 
@@ -230,8 +241,8 @@ async function start() {
 allow drawing on canvas
 */
 function allowDrawing() {
-    canvas.isDrawingMode = 1;
-    document.getElementById('status').innerHTML = "<button type=\"button\" class=\"button is-primary\" onclick=\'toggleSketch()\'>Start drawing</button>";
+    canvas.isDrawingMode = true;
+    document.getElementById('status').innerHTML = "<button type=\"button\" class=\"button start_btn is-primary\" onclick=\'toggleSketch()\'>Start drawing</button>";
     $('button').prop('disabled', false);
     var slider = document.getElementById('myRange');
     slider.oninput = function () {
@@ -251,10 +262,50 @@ function erase() {
 function exportLevel() {
     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
     console.log("s")
-    window.location.href=image;
+    window.location.href = image;
 }
 
-function toggleSketch() {
-    var modal = document.getElementById("main-sketch");
-    modal.classList.toggle('is-active');
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {
+        type: mime
+    });
+}
+
+function sendToServer() {
+    var base64Data = canvas.toDataURL()
+    var image = dataURLtoBlob(base64Data)
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("PUT", "/", true);
+    xmlHttp.send(image);
+    xmlHttp = null;
+}
+
+
+function sendResults() {
+    $.ajax({
+        url: "/",
+        type: 'POST',
+        dataType: 'json',
+        data: { result: bestResult[0] },
+        timeout: 3000,
+    })
+    
+    setTimeout(() => {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "/predict.html", false ); 
+        xmlHttp.send( null );
+        let msg =  xmlHttp.responseText;
+        if (msg == "waiting") { return; }
+        document.getElementById("atmsg").innerHTML = msg
+        toggleSketch()
+    }, 1000)
 }

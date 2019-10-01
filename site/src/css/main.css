@@ -1,0 +1,76 @@
+#footer {
+    position:fixed;
+}
+
+#status {
+    width: 100%;
+    margin-top: 100px;
+    font-size: 3em;
+    text-align: center;
+}
+
+.main-sketch {
+    height: 100%;
+}
+
+.sketch {
+    display: inline-block;
+    height:320px;
+    width:600px;
+}
+
+.left_panel, .right_panel {
+    display: inline;
+    width:300px;
+    height:300px;
+}
+
+.right_panel {
+    float:right;
+}
+
+.canvas {
+    display: block;
+}
+
+.sketch_options_1 {
+    display:block;
+    padding-top: 100px;
+    padding-left:50px;
+    width:300px;
+}
+
+.sketch_options_2 {
+    display:block;
+    padding-top: 100px;
+    padding-left:50px;
+    width:300px;
+}
+
+.canvas-container {
+    display: inline;
+    width: auto;
+    height: 300px;
+}
+
+.button {
+    display: inline;
+}
+
+.slider {
+    width: 200px;
+}
+
+.start_btn {
+    width: 400px;
+    height: 130px;
+    font-size: 45px;
+}
+
+.message {
+    padding: 50px 200px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    font-weight: 600;
+}
