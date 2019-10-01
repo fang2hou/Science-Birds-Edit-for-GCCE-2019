@@ -1,6 +1,8 @@
 # Science Birds Edit for GCCE 2019
 This project is the example code of paper: __Towards An Angry Birds-like Game System for Promoting Mental Well-being of Players Using Art-Therapy-embedded PCG__
 
+![Example](example.gif)
+
 # How to use
 1. Create a Python 3.7 enviroment with the following package: 
     `pillow`, `lxml`, `requests`
