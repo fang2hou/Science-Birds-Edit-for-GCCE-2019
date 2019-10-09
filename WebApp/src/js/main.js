@@ -122,13 +122,17 @@ function getFrame() {
         const probs = findTopValues(pred, 5)
         const names = getClassNames(indices)
 
+        if (probs[0] > 0.5) {
+            bestResult = names[0];
+        } else {
+            bestResult = "none"
+        }
 
-        bestResult = names;
+        console.log(probs[0], bestResult)
 
         //set the table 
         setTable(names, probs)
     }
-
 }
 
 /*
@@ -241,13 +245,15 @@ async function start(cur_mode) {
 allow drawing on canvas
 */
 function allowDrawing() {
-    canvas.isDrawingMode = true;
-    document.getElementById('status').innerHTML = "<button type=\"button\" class=\"button start_btn is-primary\" onclick=\'toggleSketch()\'>Start drawing</button>";
-    $('button').prop('disabled', false);
-    var slider = document.getElementById('myRange');
-    slider.oninput = function () {
-        canvas.freeDrawingBrush.width = this.value;
-    };
+    if (canvas){
+        canvas.isDrawingMode = true;
+        document.getElementById('status').innerHTML = "<button type=\"button\" class=\"button start_btn is-primary\" onclick=\'toggleSketch()\'>Start drawing</button>";
+        $('button').prop('disabled', false);
+        var slider = document.getElementById('myRange');
+        slider.oninput = function () {
+            canvas.freeDrawingBrush.width = this.value;
+        };
+    }
 }
 
 /*
@@ -295,8 +301,8 @@ function sendResults() {
         url: "/",
         type: 'POST',
         dataType: 'json',
-        data: { result: bestResult[0] },
-        timeout: 3000,
+        data: { result: bestResult },
+        timeout: 100,
     })
     
     setTimeout(() => {

@@ -14,8 +14,6 @@ READER_DIRECTORY = "tmp/"
 LEVEL_PATH = "../Client/ScienceBirds.app/Contents/Resources/Data/StreamingAssets/Levels/level-4.xml"
 
 # handler
-
-
 class reader_handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=WEB_DIRECTORY, **kwargs)
@@ -26,40 +24,40 @@ class reader_handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def _html(self, message):
-        content = '<html><body><h1>{}</h1></body></html>'.format(message)
+        content = f"<html><body><h1>{message}</h1></body></html>"
         return content.encode("utf8")
 
     def do_PUT(self):
         if not os.path.exists(READER_DIRECTORY):
             os.makedirs(READER_DIRECTORY)
+        
+        file_length = int(self.headers['Content-Length'])
         filename = "temp.png"
 
-        file_length = int(self.headers['Content-Length'])
         with open(READER_DIRECTORY+filename, 'wb') as output_file:
             output_file.write(self.rfile.read(file_length))
-            lg.generate(LEVEL_PATH)
-            print("output!")
-
+        
+        lg.generate(LEVEL_PATH)
+        print("output!")
+        
         self._set_headers()
         self.wfile.write(self._html("PUT!"))
 
     def do_POST(self):
         if not os.path.exists(READER_DIRECTORY):
             os.makedirs(READER_DIRECTORY)
-        filename = "results.txt"
         file_length = int(self.headers['Content-Length'])
         data = self.rfile.read(file_length).decode("utf-8")
         predict = re.findall(r"result\=([a-z]*)\%0D", data)
-        with open(READER_DIRECTORY+filename, 'w') as output_file:
-            for i in predict:
-                output_file.write(i)
-                pred = sd.generate_sentences(sd.get_type(i), i)
-                print(pred)
-                with open("../WebApp/predict.html", 'w') as a:
-                    a.write(pred)
-
+        predict = "none" if len(predict) == 0 else predict[0]
+        predict = sd.generate_sentences(sd.get_type(predict), predict)
+        
+        with open("../WebApp/predict.html", 'w') as a:
+            a.write(predict)
+        
         self._set_headers()
         self.wfile.write(self._html("Post!"))
+        del predict
 
 
 # start server

@@ -12,10 +12,16 @@ templates = {
     ],
     "things": [
         "You just drawed a %word%, I guess it is very important for you, right?",
+    ],
+    "none": [
+        "(O_O)? Oops, I could not recognizing your drawing, sorry i will continue to learn and grow."
     ]
 }
 
 def get_type(word):
+    if word == "none":
+        return "none"
+    
     api_key = "your-api"
     api_url = "https://dictionaryapi.com/api/v3/references/collegiate/json/"
     response = requests.get(url=api_url+word, params={"key": api_key})
@@ -49,6 +55,3 @@ if __name__ == "__main__":
 
     with open("../WebApp/predict.html", 'w') as output_file:
         output_file.write(pred)
-
-    print(pred)
-    
