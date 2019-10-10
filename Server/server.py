@@ -5,13 +5,18 @@ import os
 import re
 import simple_doctor as sd
 import level_generator as lg
+import os
 
 # configuration
 PREFIX = "[Sketcher-WEB]"
 PORT = 8000
 WEB_DIRECTORY = "../WebApp"
 READER_DIRECTORY = "tmp/"
-LEVEL_PATH = "../Client/ScienceBirds.app/Contents/Resources/Data/StreamingAssets/Levels/level-4.xml"
+
+if 'Darwin' == platform.system():
+    LEVEL_PATH = "../Client/ScienceBirds.app/Contents/Resources/Data/StreamingAssets/Levels/level-4.xml"
+else:
+    LEVEL_PATH = "../Client/ScienceBirds_Data/StreamingAssets/Levels/level-4.xml"
 
 # handler
 class reader_handler(http.server.SimpleHTTPRequestHandler):
@@ -57,8 +62,6 @@ class reader_handler(http.server.SimpleHTTPRequestHandler):
         
         self._set_headers()
         self.wfile.write(self._html("Post!"))
-        del predict
-
 
 # start server
 httpd = http.server.HTTPServer(('', PORT), reader_handler)
