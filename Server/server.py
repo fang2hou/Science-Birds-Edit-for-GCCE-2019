@@ -24,7 +24,8 @@ def index():
 def receive():
     # predict
     predict = request.form['result'] or 'none'
-    predict = sd.generate_sentences(predict, useDictionaryAPI=False)
+    
+    predict = sd.generate_sentences(predict.strip())
 
     # sketch
     file = request.files['sketch']
