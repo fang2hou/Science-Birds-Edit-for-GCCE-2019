@@ -1,6 +1,6 @@
 # Science Birds Edit for GCCE 2019
 
-Last updated: Oct 10th, 2019
+Last updated: Oct 11st, 2019
 
 This project is the example code of paper: __Towards An Angry Birds-like Game System for Promoting Mental Well-being of Players Using Art-Therapy-embedded PCG__
 
@@ -8,8 +8,11 @@ This project is the example code of paper: __Towards An Angry Birds-like Game Sy
 
 # How to use
 1. Create a Python 3.7 enviroment with the following package: 
-    `pillow`, `lxml`, `requests`
-2. Create a account on [https://dictionaryapi.com/](https://dictionaryapi.com/). And copy the free api key to `Server/simple_doctor.py`.
+    - `flask`: Web app framework
+    - `pillow`: Image processing
+    - `lxml`: Read and write the level file.
+    - `requests`: Use optional online API to generate sentences.
+2. [If you want to use online classification] Create a account on [https://dictionaryapi.com/](https://dictionaryapi.com/). And copy the free api key to `Server/simple_doctor.py`.
 3. Start server to handle data. Server will read `Webapp` directory as root directory, you also can configure the path inside `Server/server.py`.
     - Windows: `python server_win.py`
     - macOS: `python server_mac.py`
