@@ -122,7 +122,7 @@ function getFrame() {
         const probs = findTopValues(pred, 5)
         const names = getClassNames(indices)
 
-        if (probs[0] > 0.5) {
+        if (probs[0] > 0.44) {
             bestResult = names[0];
         } else {
             bestResult = "none"
@@ -289,29 +289,21 @@ function sendToServer() {
     var base64Data = canvas.toDataURL()
     var image = dataURLtoBlob(base64Data)
 
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("PUT", "/", true);
-    xmlHttp.send(image);
-    xmlHttp = null;
-}
+    var formData = new FormData()
+    formData.append('sketch', image)
+    formData.append('result', bestResult)
 
+    console.log(formData)
 
-function sendResults() {
     $.ajax({
-        url: "/",
-        type: 'POST',
-        dataType: 'json',
-        data: { result: bestResult },
-        timeout: 100,
-    })
-    
-    setTimeout(() => {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "/predict.html", false ); 
-        xmlHttp.send( null );
-        let msg =  xmlHttp.responseText;
-        if (msg == "waiting") { return; }
-        document.getElementById("atmsg").innerHTML = msg
-        toggleSketch()
-    }, 1000)
+        type: "POST",
+        url: "/uploadSketch",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(respMsg){
+            document.getElementById("atmsg").innerHTML = respMsg
+            toggleSketch()
+        },
+    });
 }

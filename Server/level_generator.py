@@ -25,7 +25,7 @@ def get_block_position(x, y, baseline):
 
 
 def generate(path):
-    paint = Image.open('tmp/temp.png', 'r')
+    paint = Image.open('temp.png', 'r')
     paint = paint.resize((20, 20))
     pix_data = paint.load()
 
