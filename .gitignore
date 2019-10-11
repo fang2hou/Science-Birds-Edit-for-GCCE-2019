@@ -1,2 +1,5 @@
-
+Client/*
 Server/desktop.ini
+Server/temp.png
+Server/__pycache__/*
+.DS_Store

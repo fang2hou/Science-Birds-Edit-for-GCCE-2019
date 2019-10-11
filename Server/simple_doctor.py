@@ -19,6 +19,10 @@ templates = {
 }
 
 def get_type(word):
+    pass
+
+
+def get_type_with_api(word):
     if word == "none":
         return "none"
     
@@ -34,7 +38,12 @@ def get_type(word):
         return None
 
 
-def generate_sentences(predicted_type, word):
+def generate_sentences(word, useDictionaryAPI):
+    if useDictionaryAPI:
+        predicted_type = get_type_with_api(word)
+    else:
+        predicted_type = get_type(word)
+
     if predicted_type == None:
         predicted_type = "things"
 
@@ -45,13 +54,5 @@ def generate_sentences(predicted_type, word):
 
 
 if __name__ == "__main__":
-    READER_DIRECTORY = "tmp/"
-    filename = "results.txt"
-    word = "cat"
-    with open(READER_DIRECTORY+filename, 'r') as output_file:
-        word = output_file.readline()
-    
-    pred = generate_sentences(get_type(word), word)
-
-    with open("../WebApp/predict.html", 'w') as output_file:
-        output_file.write(pred)
+    word = 'cat'
+    print(generate_sentences(word))

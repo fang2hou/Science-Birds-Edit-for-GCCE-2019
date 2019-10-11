@@ -1,6 +1,5 @@
 from flask import Flask, request
 import sys
-import webbrowser
 
 import simple_doctor as sd
 import level_generator as lg
@@ -25,7 +24,7 @@ def index():
 def receive():
     # predict
     predict = request.form['result'] or 'none'
-    predict = sd.generate_sentences("things", predict)
+    predict = sd.generate_sentences(predict, useDictionaryAPI=False)
 
     # sketch
     file = request.files['sketch']
@@ -36,4 +35,5 @@ def receive():
     return predict
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    demo_port = 5000
+    app.run(debug=True, port=demo_port)
