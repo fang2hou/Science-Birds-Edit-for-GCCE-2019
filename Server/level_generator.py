@@ -46,6 +46,8 @@ def generate(path):
 
     new_level = li.level()
     new_level.add_birds("BirdRed", 1)
+    new_level.add_birds("BirdBlack", 4)
+    new_level.add_birds("BirdBlue", 2)
 
     for x in range(0, 20):
         # Confirm the column has blocks
