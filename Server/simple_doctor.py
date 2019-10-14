@@ -18,7 +18,11 @@ templates = {
         'Hmm, it looks like #word#, I guess you are a sports guy!'
     ],
     'none': [
-        '(O_O)? Oops, I could not recognizing your drawing, sorry i will continue to learn and grow.'
+        '(O_O)? Oops, I could not recognize your drawing, sorry I will continue to learn and grow.',
+        '(μ_μ) Sorry! sorry, I am really sorry, I will continue to learn and grow.',
+        '<img src=\"/src/meme/sorry_1.jpg\" />',
+        '<img src=\"/src/meme/sorry_2.jpg\" />',
+        '<img src=\"/src/meme/sorry_3.jpg\" />'
     ]
 }
 
