@@ -1,6 +1,6 @@
 # Science Birds Edit for GCCE 2019
 
-Last updated: Oct 11st, 2019
+Last updated: Oct 14th, 2019
 
 This project is the example code of paper: __Towards An Angry Birds-like Game System for Promoting Mental Well-being of Players Using Art-Therapy-embedded PCG__
 
