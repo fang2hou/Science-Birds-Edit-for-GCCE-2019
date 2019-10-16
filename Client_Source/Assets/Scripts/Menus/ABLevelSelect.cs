@@ -63,9 +63,13 @@ public class ABLevelSelect : ABMenu {
 #endif
 
 		// Combine the two sources of levels
-		string[] allXmlFiles = new string[resourcesXml.Length + streamingXml.Length];
-		resourcesXml.CopyTo(allXmlFiles, 0);
-		streamingXml.CopyTo(allXmlFiles, resourcesXml.Length);
+
+		// GCCE DEMO
+		// string[] allXmlFiles = new string[resourcesXml.Length + streamingXml.Length];
+		string[] allXmlFiles = new string[streamingXml.Length];
+		// resourcesXml.CopyTo(allXmlFiles, 0);
+		// streamingXml.CopyTo(allXmlFiles, resourcesXml.Length);
+		streamingXml.CopyTo(allXmlFiles, 0);
 
 		_startPos.x = Mathf.Clamp (_startPos.x, 0, 1f) * Screen.width;
 		_startPos.y = Mathf.Clamp (_startPos.y, 0, 1f) * Screen.height;
